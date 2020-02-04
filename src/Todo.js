@@ -1,18 +1,41 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
-class Todo extends Component{
-  handleRemove=()=>{
-    this.props.removeTodo(this.props.id);
+class Todo extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      isEditing: false
+    }
   }
-  render(){
-   
-    return(
+  handleRemove = () => {
+    this.props.removeTodo(this.props.id);
+  };
+  toggleForm = ()=>{
+    this.setState({
+      isEditing: !this.state.isEditing
+    })
+  }
+  render() {
+    let result;
+    if(this.state.isEditing){
+      result=(
+        <div>
+          <form>
+            <input type="text" />
+          </form>
+        </div>
+      )
+    }
+    else{
+      result = (
       <div>
-        <button>Edit</button>
+        <button onClick={this.toggleForm}>Edit</button>
         <button onClick={this.handleRemove}>Delete</button>
         <li>{this.props.task}</li>
       </div>
-    )
+      )
+    }
+    return result;
   }
 }
 
